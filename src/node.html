@@ -1,0 +1,28 @@
+<template>
+  <section if.bind="resource" class="au-animate">
+      <pre>
+        ${resource.data|asString}
+      </pre>
+      <hr />
+      <ul>
+        <li repeat.for="link of resource.links()">
+          <a href="#${link.url}">${link.rel}</a>
+        </li>
+      </ul>
+
+      <form repeat.for="query of resource.queries()" method="GET" action.bind="query.url">
+        <input type="text" name="q" />
+        <input type="submit" />
+      </form>
+
+      <div repeat.for="item of resource.items()">
+        <compose view-model="./node" model.bind="item"></compose>
+        <hr />
+      </div>
+
+      <form repeat.for="operation of resource.operations()" method.bind="operation.method" action.bind="operation.url">
+        ${operation.data|asString}
+        <input type="submit" />
+      </form>
+  </section>
+</template>
